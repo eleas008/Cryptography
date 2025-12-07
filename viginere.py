@@ -29,6 +29,9 @@ def viginere_decryption(ct,key):
     result = ""
     j = 0
     for i in range(len(ct)):
+        if ct[i] == " ":
+            result+=" "
+            continue
         c = ord(ct[i])-65
         k = ord(key_stream_string[j]) - 65
         j+=1
