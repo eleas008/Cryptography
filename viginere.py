@@ -1,34 +1,40 @@
 def viginere_encryption(pt,key):
     key_stream_string = ""
 
-    for i in range(len(pt)):
-        if (i<len(pt)):
-            key_stream_string+=key[i%len(key)]
+    for i in range(len(pt.replace(" ",""))):
+        key_stream_string+=key[i%len(key)]
+    
+    print(key_stream_string)
     
     result = ""
+    j=0
     for i in range(len(pt)):
-        p = ord(pt[i])-ord('a')
-        k = ord(key_stream_string[i])-ord('a')
-        result += chr(((p+k)%26)+ord('a'))
+        if pt[i] == " ":
+            result+=" "
+            continue
+        p = ord(pt[i])-97
+        k = ord(key_stream_string[j])-97
+        j+=1
+        result += chr(((p+k)%26)+65)
     
-    return result.upper()
+    return result
 
 
 def viginere_decryption(ct,key):
     key_stream_string = ""
 
-    for i in range(len(ct)):
-        if (i<len(ct)):
-            key_stream_string += key[i%len(key)]
+    for i in range(len(ct.replace(" ",""))):
+        key_stream_string += key[i%len(key)]
         
     result = ""
-
+    j = 0
     for i in range(len(ct)):
-        c = ord(ct[i])-ord('A')
-        k = ord(key_stream_string[i]) - ord('A')
-        result += chr((c-k)%26 + ord('A'))
+        c = ord(ct[i])-65
+        k = ord(key_stream_string[j]) - 65
+        j+=1
+        result += chr((c-k)%26 + 97)
     
-    return result.lower()
+    return result
 
 
 if __name__ == "__main__":
